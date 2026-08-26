@@ -8,7 +8,7 @@
 
 **Desafio:** recomendação de investimento imobiliário para a Seazone — **Itapema/SC** — construída com IA, a partir de dados reais de Airbnb e VivaReal.
 
-**Entregável central:** https://leschneiater.github.io/jt2026-leticia-gentil/ — relatório navegável que responde as 4 perguntas do desafio + a posição sobre a tese dos compactos no Centro.
+**Entregável central:** [RELATÓRIO](https://leschneiater.github.io/jt2026-leticia-gentil/) — relatório navegável que responde as 4 perguntas do desafio + a posição sobre a tese dos compactos no Centro.
 
 ---
 
