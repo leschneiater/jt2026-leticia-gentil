@@ -18,9 +18,9 @@ O relatório é **um único arquivo HTML autossuficiente** (CSS embutido, sem de
 
 ```bash
 # na raiz do repositório
-open relatorio.html      # macOS
-xdg-open relatorio.html  # Linux
-start relatorio.html     # Windows
+open index.html      # macOS
+xdg-open index.html  # Linux
+start index.html     # Windows
 ```
 
 Também funciona impresso (há regras de `@media print`).
