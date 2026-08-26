@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "<string>", line 18, in <module>
+    dds=sorted(dist(cl,ca,ln,la) for ln,la in pts)
+  File "<string>", line 18, in <genexpr>
+    dds=sorted(dist(cl,ca,ln,la) for ln,la in pts)
+               ^^^^
+NameError: name 'dist' is not defined. Did you mean: 'dict'?
