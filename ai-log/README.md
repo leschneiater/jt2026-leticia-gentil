@@ -9,7 +9,7 @@ Esta pasta documenta **como o trabalho foi construído com IA**, que é parte da
 ## Arquivos desta pasta
 
 - `README.md` — registro do método de trabalho com IA e das decisões críticas do processo.
-- `ai-log.md` — sessão integral, em texto, da conversa de trabalho entre usuário e IA.
+- `ai-log.json` — sessão integral, em texto, da conversa de trabalho entre usuário e IA.
 - `sessao-completa.md` — exportação completa da sessão, organizada por etapas da investigação.
 
 ## Método de trabalho
