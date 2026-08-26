@@ -72,7 +72,7 @@ A análise interna sugeriu *"apartamentos compactos (studio/1 quarto) no Centro"
 | Caminho | Conteúdo |
 |---|---|
 | `README.md` | Este arquivo (link do vídeo na 1ª linha) |
-| `relatorio.html` | Relatório completo navegável (recomendação + análise) |
+| `index.html` | Relatório completo navegável (recomendação + análise) |
 | `ai-log/` | Conversas com a IA em texto (processo de trabalho) |
 | `contexto/` | Base de contexto da empresa e perfil profissional |
 | `data/` | Datasets de apoio (Airbnb + VivaReal) |
