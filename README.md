@@ -10,6 +10,9 @@
 **Entregável central:** [RELATÓRIO NAVEGÁVEL](https://leschneiater.github.io/jt2026-leticia-gentil/)
 
 **Decisão auditada:** [`DECISAO_FINAL.md`](./DECISAO_FINAL.md)  
+**Análise reproduzível:** [`analysis/README.md`](./analysis/README.md)  
+**Pipeline completo:** [`analysis/run_all.py`](./analysis/run_all.py)  
+**Validação dos resultados:** [`analysis/validate_results.py`](./analysis/validate_results.py)  
 **Gate reproduzível da decisão:** [`analysis/decision_gate.py`](./analysis/decision_gate.py)
 
 O relatório responde às quatro perguntas do desafio, apresenta uma posição sobre a tese dos compactos no Centro, explicita as limitações dos dados e documenta como a IA foi utilizada durante a investigação.
@@ -292,6 +295,10 @@ O registro textual da sessão principal está em:
 
 [`ai-log/transcricao-completa.md`](./ai-log/transcricao-completa.md)
 
+O adendo posterior de auditoria da decisão está em:
+
+[`ai-log/adendo-decisao-final.md`](./ai-log/adendo-decisao-final.md)
+
 Durante o processo, a IA foi usada para:
 
 1. mapear os cinco datasets, sua granularidade, colunas e chaves;
@@ -301,7 +308,8 @@ Durante o processo, a IA foi usada para:
 5. conectar o mercado de Airbnb com o mercado de venda;
 6. construir métricas derivadas como eficiência de capital e break-even;
 7. confrontar a tese interna dos compactos no Centro;
-8. documentar limitações e separar dado observado de hipótese.
+8. documentar limitações e separar dado observado de hipótese;
+9. auditar a decisão final confrontando diretamente 2Q Interior × 2Q Orla e definindo uma condição objetiva de reversão.
 
 Um ponto crítico do processo foi a decisão de **não tratar presença na série de preços como ocupação**.
 
@@ -325,6 +333,83 @@ O processo completo também mostra erros, revisões e mudanças de direção da 
 
 ---
 
+# Como reproduzir a análise
+
+A análise foi organizada para que os principais resultados possam ser recalculados diretamente a partir dos cinco CSVs da pasta `data/`.
+
+## 1. Instalar as dependências
+
+Na raiz do repositório:
+
+```bash
+pip install -r analysis/requirements.txt
+```
+
+## 2. Executar o pipeline completo
+
+```bash
+python analysis/run_all.py
+```
+
+Esse comando executa, em sequência:
+
+1. `01_perfil.py` — perfil por número de quartos e eficiência de capital;
+2. `02_localizacao.py` — comparação Orla × Interior;
+3. `03_regressao.py` — regressão descritiva com `log(diária)`;
+4. `04_break_even.py` — ocupação necessária para metas de 6%, 8% e 10%;
+5. `05_tese_centro.py` — teste da tese dos compactos no Centro.
+
+Os resultados são gravados em `analysis/outputs/`:
+
+```text
+analysis/outputs/
+├── perfil.csv
+├── localizacao.csv
+├── regressao.csv
+├── break_even.csv
+└── tese_centro.csv
+```
+
+## 3. Validar os resultados publicados
+
+Depois de executar o pipeline:
+
+```bash
+python analysis/validate_results.py
+```
+
+A validação compara os resultados recalculados com os valores e relações publicados neste README e no relatório.
+
+Ela foi construída para **sinalizar divergências, não mascará-las**. Se algum resultado não estiver dentro do esperado, a diferença deve ser investigada antes de qualquer alteração na conclusão.
+
+## 4. Executar o gate final da decisão
+
+```bash
+python analysis/decision_gate.py
+```
+
+O `decision_gate.py` é a camada posterior de decisão entre **2Q Interior × 2Q Orla**. Ele não substitui a análise dos CSVs.
+
+A cadeia completa é:
+
+```text
+CSVs originais
+    ↓
+scripts 01–05
+    ↓
+outputs CSV
+    ↓
+validate_results.py
+    ↓
+decision_gate.py + DECISAO_FINAL.md
+    ↓
+README + relatório
+```
+
+O detalhamento técnico da reprodução está em [`analysis/README.md`](./analysis/README.md).
+
+---
+
 # Como abrir o relatório
 
 O relatório é um único arquivo HTML autossuficiente, com CSS embutido e sem dependências externas.
@@ -334,10 +419,4 @@ O relatório é um único arquivo HTML autossuficiente, com CSS embutido e sem d
 open index.html      # macOS
 xdg-open index.html  # Linux
 start index.html     # Windows
-```
-
-Para reproduzir apenas o gate final da decisão:
-
-```bash
-python analysis/decision_gate.py
 ```
