@@ -21,7 +21,7 @@ Essa decisão não significa que a orla seja a alternativa de menor risco.
 
 O **2 quartos no interior apresenta menor break-even** no cenário analisado. A escolha da orla é uma decisão estratégica: aceita uma ocupação necessária maior em troca de **diária observada superior, escala de oferta e maior profundidade do mercado de curta estadia**.
 
-| Dimensão | Leitura da análise |
+| Hierarquia | Leitura da análise |
 |---|---|
 | **Tipologia** | Apartamento concentra os perfis mais eficientes analisados |
 | **Nº de quartos** | **2 quartos** apresenta a melhor eficiência de capital entre segmentos robustos (~0,060%/dia) |
