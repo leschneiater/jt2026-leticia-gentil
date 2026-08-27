@@ -3,258 +3,485 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Recomendação de investimento imobiliário em Itapema/SC — Hackathon Jovens Talentos AI Builder 2026 · Seazone">
 <title>Recomendação de Investimento Imobiliário — Itapema/SC | Hackathon Seazone 2026</title>
 <style>
   :root{
-    --azul:#0b3d6b; --azul-claro:#1266b3; --ceu:#eaf2fb; --conferte:#b3d4f5;
-    --green:#1f7a4d; --cinza:#5a6572; --fundo:#f6f8fb; --linha:#dfe6ef;
+    --azul:#0b3d6b;
+    --azul-claro:#1266b3;
+    --ceu:#eaf2fb;
+    --green:#1f7a4d;
+    --amber:#b45309;
+    --red:#c0392b;
+    --cinza:#5a6572;
+    --texto:#22303c;
+    --fundo:#f6f8fb;
+    --linha:#dfe6ef;
+    --branco:#ffffff;
   }
+
   *{box-sizing:border-box}
-  body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:#22303c;background:var(--fundo);line-height:1.55}
-  header.hero{background:linear-gradient(135deg,var(--azul),var(--azul-claro));color:#fff;padding:44px 24px;text-align:center}
-  header.hero h1{margin:0 0 10px;font-size:1.9rem}
-  header.hero p{margin:4px 0;opacity:.92}
-  header.hero .tag{display:inline-block;background:rgba(255,255,255,.16);padding:4px 14px;border-radius:20px;margin:6px 3px;font-size:.85rem}
-  .wrap{max-width:1000px;margin:0 auto;padding:28px 24px 60px}
-  section{background:#fff;border:1px solid var(--linha);border-radius:12px;padding:26px 30px;margin:24px 0;box-shadow:0 2px 8px rgba(10,40,80,.05)}
-  h2{color:var(--azul);font-size:1.35rem;margin:26px 0 6px;border-bottom:3px solid var(--ceu) ;padding-bottom:8px}
-  h2 .num{display:inline-block;background:var(--azul);color:#fff;border-radius:8px;padding:2px 11px;margin-right:10px;font-size:.95rem}
-  h3{color:var(--azul-claro);font-size:1.05rem;margin:20px 0 6px}
-  .p, p{margin:.55em 0}
-  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:.92rem}
-  th,td{border:1px solid var(--linha);padding:8px 10px;text-align:right}
-  th:nth-child(1),td:nth-child(1){text-align:left}
-  thead th{background:var(--ceu);color:var(--azul);font-weight:600}
-  tbody tr:nth-child(even){background:#f3f7fc}
-  .dest{background:#e7f4ec !important;font-weight:600}
-  .good{color:var(--green);font-weight:600}
-  .warn{color:#b45309;font-weight:600}
-  .bad{color:#c0392b;font-weight:600}
-  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:16px 0}
-  .card{background:var(--ceu);border:1px solid var(--linha);border-radius:10px;padding:16px}
-  .card .k{font-size:.8rem;color:var(--cinza);text-transform:uppercase;letter-spacing:.4px}
-  .card .v{font-size:1.5rem;font-weight:700;color:var(--azul);display:block;margin-top:2px}
-  .card .s{font-size:.82rem;color:var(--cinza)}
-  .callout{background:#fff7e6;border-left:4px solid #e8a33d;padding:12px 16px;border-radius:6px;margin:14px 0}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+    color:var(--texto);
+    background:var(--fundo);
+    line-height:1.58;
+  }
+
+  a{color:var(--azul-claro)}
+
+  header.hero{
+    background:linear-gradient(135deg,var(--azul),var(--azul-claro));
+    color:#fff;
+    padding:52px 24px 42px;
+    text-align:center;
+  }
+  header.hero h1{margin:0 0 10px;font-size:clamp(1.9rem,4vw,2.7rem);line-height:1.15}
+  header.hero p{margin:5px 0;opacity:.94}
+  header.hero .tag{
+    display:inline-block;
+    background:rgba(255,255,255,.16);
+    border:1px solid rgba(255,255,255,.12);
+    padding:5px 13px;
+    border-radius:20px;
+    margin:9px 3px 0;
+    font-size:.84rem;
+  }
+
+  nav.jump{
+    max-width:1050px;
+    margin:18px auto 0;
+    padding:0 24px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    justify-content:center;
+  }
+  nav.jump a{
+    text-decoration:none;
+    background:#fff;
+    border:1px solid var(--linha);
+    color:var(--azul);
+    padding:7px 11px;
+    border-radius:18px;
+    font-size:.82rem;
+  }
+
+  .wrap{max-width:1050px;margin:0 auto;padding:18px 24px 64px}
+
+  section{
+    background:var(--branco);
+    border:1px solid var(--linha);
+    border-radius:14px;
+    padding:28px 30px;
+    margin:24px 0;
+    box-shadow:0 2px 10px rgba(10,40,80,.05);
+  }
+
+  h2{
+    color:var(--azul);
+    font-size:1.4rem;
+    margin:0 0 14px;
+    border-bottom:3px solid var(--ceu);
+    padding-bottom:9px;
+  }
+  h2 .num{
+    display:inline-block;
+    background:var(--azul);
+    color:#fff;
+    border-radius:8px;
+    padding:2px 11px;
+    margin-right:10px;
+    font-size:.95rem;
+  }
+  h3{color:var(--azul-claro);font-size:1.08rem;margin:22px 0 7px}
+  h4{margin:18px 0 7px;color:var(--azul)}
+  p{margin:.6em 0}
+  ul,ol{padding-left:22px}
+
+  table{width:100%;border-collapse:collapse;margin:15px 0;font-size:.91rem}
+  th,td{border:1px solid var(--linha);padding:9px 10px;text-align:right;vertical-align:top}
+  th:first-child,td:first-child{text-align:left}
+  thead th{background:var(--ceu);color:var(--azul);font-weight:650}
+  tbody tr:nth-child(even){background:#f7f9fc}
+  .dest{background:#eaf6ef !important;font-weight:650}
+
+  .cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(205px,1fr));
+    gap:14px;
+    margin:18px 0;
+  }
+  .card{
+    background:var(--ceu);
+    border:1px solid var(--linha);
+    border-radius:11px;
+    padding:17px;
+  }
+  .card .k{font-size:.76rem;color:var(--cinza);text-transform:uppercase;letter-spacing:.45px}
+  .card .v{font-size:1.42rem;font-weight:750;color:var(--azul);display:block;margin:3px 0}
+  .card .s{font-size:.83rem;color:var(--cinza)}
+
+  .decision-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:14px;
+    margin:16px 0;
+  }
+  .decision{
+    border:1px solid var(--linha);
+    border-radius:10px;
+    padding:16px;
+    background:#fff;
+  }
+  .decision strong{color:var(--azul)}
+
+  .callout{
+    background:#fff7e6;
+    border-left:4px solid #e8a33d;
+    padding:13px 16px;
+    border-radius:7px;
+    margin:15px 0;
+  }
   .callout.blue{background:var(--ceu);border-left-color:var(--azul-claro)}
   .callout.green{background:#eef7f1;border-left-color:var(--green)}
-  .veredito{background:linear-gradient(135deg,var(--azul),var(--azul-claro));color:#fff;border-radius:12px;padding:22px 26px;margin:18px 0}
-  .veredito h4{margin:0 0 8px;font-size:1.15rem}
-  ul,ol{padding-left:22px}
-  .small{font-size:.82rem;color:var(--cinza)}
-  .chart{background:#fff;border:1px solid var(--linha);border-radius:10px;padding:14px;margin:12px 0}
-  .foot{text-align:center;color:var(--cinza);font-size:.8rem;padding:20px}
-  .bar-label{font-size:.75rem}
-  .pill{border-radius:14px;padding:2px 10px;font-size:.78rem}
-  .pill.g{background:#e5f5ea;color:var(--green)} .pill.o{background:#fdf1e3;color:#b45309}.pill.r{background:#fce9e7;color:#c0392b}
-  @media print{ body{background:#fff} section{border:none;box-shadow:none;page-break-inside:avoid} .hero{-webkit-print-color-adjust:exact} }
+  .callout.red{background:#fff0ef;border-left-color:var(--red)}
+
+  .veredito{
+    background:linear-gradient(135deg,var(--azul),var(--azul-claro));
+    color:#fff;
+    border-radius:12px;
+    padding:22px 25px;
+    margin:18px 0;
+  }
+  .veredito h3,.veredito h4{color:#fff;margin-top:0}
+
+  .good{color:var(--green);font-weight:650}
+  .warn{color:var(--amber);font-weight:650}
+  .bad{color:var(--red);font-weight:650}
+  .small{font-size:.83rem;color:var(--cinza)}
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.9em}
+
+  .pill{border-radius:14px;padding:3px 9px;font-size:.77rem;display:inline-block}
+  .pill.g{background:#e5f5ea;color:var(--green)}
+  .pill.o{background:#fdf1e3;color:var(--amber)}
+  .pill.r{background:#fce9e7;color:var(--red)}
+
+  .bar-wrap{margin:18px 0}
+  .bar-row{display:grid;grid-template-columns:90px 1fr 58px;gap:10px;align-items:center;margin:10px 0;font-size:.87rem}
+  .bar-bg{background:#edf1f6;border-radius:8px;height:28px;overflow:hidden}
+  .bar{height:100%;background:linear-gradient(90deg,var(--azul-claro),#6fa7d9);border-radius:8px}
+
+  .foot{text-align:center;color:var(--cinza);font-size:.8rem;padding:18px}
+
+  @media (max-width:700px){
+    section{padding:22px 18px}
+    .wrap{padding-left:14px;padding-right:14px}
+    table{font-size:.82rem;display:block;overflow-x:auto;white-space:nowrap}
+    .bar-row{grid-template-columns:76px 1fr 50px}
+  }
+
+  @media print{
+    body{background:#fff}
+    nav.jump{display:none}
+    section{border:none;box-shadow:none;page-break-inside:avoid}
+    header.hero{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
 </style>
 </head>
 <body>
 
 <header class="hero">
-  <h1>Recomendação de Investimento Imobiliário</h1>
-  <p><strong>Itapema · SC</strong> — Hackathon Jovens Talentos AI Builder · Seazone 2026</p>
-  <p>Autora: Leticia Schneiater Gentil (LETS) · AI Builder</p>
+  <h1>Onde a Seazone deveria investir em Itapema?</h1>
+  <p><strong>Recomendação de investimento imobiliário · Itapema/SC</strong></p>
+  <p>Hackathon Jovens Talentos AI Builder 2026 · Leticia Schneiater Gentil</p>
   <span class="tag">Airbnb × VivaReal</span>
+  <span class="tag">5 bases reais</span>
   <span class="tag">Curta estadia</span>
-  <span class="tag">Dados de 5 arquivos</span>
+  <span class="tag">Análise construída com IA</span>
 </header>
+
+<nav class="jump" aria-label="Navegação do relatório">
+  <a href="#resumo">Resumo</a>
+  <a href="#criterio">Critério</a>
+  <a href="#perfil">1. Perfil</a>
+  <a href="#localizacao">2. Localização</a>
+  <a href="#caracteristicas">3. Características</a>
+  <a href="#compra">4. Compra</a>
+  <a href="#tese">Tese Centro</a>
+  <a href="#metodo">Método</a>
+  <a href="#ia">Processo com IA</a>
+</nav>
 
 <main class="wrap">
 
-  <!-- RESUMO -->
-  <section>
+  <section id="resumo">
     <h2><span class="num">★</span>Resumo executivo</h2>
-    <p>Com dados reais de Itapema (Airbnb e VivaReal), a recomendação técnica é investir em
-    <strong>apartamento de 2 quartos, com anúncio profissional e reserva instantânea</strong>,
-    preferencialmente nas zonas litorâneas (<strong>Meia Praia</strong>), por apresentar a melhor
-    combinação de eficiência de capital e liquidez de oferta.</p>
-    <div class="cards">
-      <div class="card"><span class="k">Tipologia</span><span class="v">Apartamento</span><span class="s">84% da oferta; casa é menos eficiente</span></div>
-      <div class="card"><span class="k">Quartos</span><span class="v">2</span><span class="s">melhor eficiência 0,060%/dia</span></div>
-      <div class="card"><span class="k">Anúncio</span><span class="v">Profissional</span><span class="s">+0,221 em log(diária); reserva instantânea ajuda</span></div>
-      <div class="card"><span class="k">Localização</span><span class="v">Orla</span><span class="s">diária ~25% > interior</span></div>
+
+    <div class="veredito">
+      <h3>Minha decisão</h3>
+      <p><strong>Se a Seazone fosse comprar hoje, eu priorizaria apartamento de 2 quartos na orla, com Meia Praia como primeira região de busca, para operação profissional de curta estadia.</strong></p>
+      <p>A escolha não é porque a orla exige menos ocupação — ela não exige. O <strong>2q interior tem menor break-even</strong>. Eu escolho a orla porque, para uma operadora de short stay, ela combina <strong>diária observada mais alta, maior escala de oferta e forte presença de anúncios com série de preço</strong>, aceitando um patamar de ocupação necessário maior.</p>
     </div>
-    <p><strong>Posição sobre a tese interna:</strong> a aposta em <em>compactos (studio/1 quarto) no Centro</em> é
-    <strong>parcialmente sustentada</strong>, mas <strong>não é a mais eficiente da cidade</strong> — e o perfil "studio"
-    especificamente <strong>não pode ser confirmado</strong> porque não há série de preço suficiente no Centro.</p>
+
+    <div class="cards">
+      <div class="card"><span class="k">Tipologia</span><span class="v">Apartamento</span><span class="s">domina a oferta e concentra os perfis mais eficientes analisados</span></div>
+      <div class="card"><span class="k">Nº de quartos</span><span class="v">2 quartos</span><span class="s">melhor eficiência de capital entre segmentos robustos: ~0,060%/dia</span></div>
+      <div class="card"><span class="k">Localização</span><span class="v">Orla</span><span class="s">diária mediana observada ~R$594 vs R$477 no interior</span></div>
+      <div class="card"><span class="k">Risco</span><span class="v">54%</span><span class="s">ocupação aproximada necessária para um 2q orla atingir 8% no cenário-base</span></div>
+    </div>
+
+    <div class="callout blue"><strong>Tese interna:</strong> os dados <strong>não sustentam</strong> que “studio/1 quarto no Centro” seja a aposta mais eficiente da cidade. Eles sustentam uma leitura mais ampla: <strong>imóveis de 1–2 quartos são eficientes em capital, sem exclusividade do Centro</strong>. Studio no Centro não possui série de preço suficiente para ser validado.</div>
   </section>
 
-  <!-- PERGUNTA 1 -->
-  <section>
+  <section id="criterio">
+    <h2>Como defini “melhor”</h2>
+    <p>O desafio deixa “melhor perfil” e “melhor localização” propositalmente abertos. Por isso, antes de escolher o imóvel, defini uma hierarquia de decisão.</p>
+
+    <ol>
+      <li><strong>Eficiência de capital:</strong> diária mediana observada ÷ preço mediano de aquisição.</li>
+      <li><strong>Risco:</strong> ocupação mínima necessária para atingir uma meta de retorno no cenário-base.</li>
+      <li><strong>Potencial operacional:</strong> diária, escala de oferta e presença de série de preço na região.</li>
+      <li><strong>Robustez:</strong> evitar conclusões apoiadas em segmentos com amostra pequena.</li>
+    </ol>
+
+    <div class="decision-grid">
+      <div class="decision"><strong>Se o objetivo fosse só minimizar risco:</strong><br>eu escolheria <strong>2q interior</strong>, porque o break-even estimado para 8% é menor (~44%).</div>
+      <div class="decision"><strong>Para a decisão estratégica da Seazone:</strong><br>priorizo <strong>2q orla</strong>, aceitando break-even maior em troca de diária observada superior e maior profundidade de mercado.</div>
+    </div>
+
+    <p class="small">Importante: “eficiência de capital” é um proxy construído com os dados disponíveis. Sem calendário de reservas não há ocupação observada, receita total ou ROI real.</p>
+  </section>
+
+  <section id="perfil">
     <h2><span class="num">1</span>Qual o melhor perfil de imóvel?</h2>
-    <p><strong>Critério escolhido:</strong> <em>eficiência de capital</em> = diária mediana ÷ preço de aquisição mediano
-    (% por dia de estadia). É a medida calculável com os dados disponíveis; não é ROI real (ver limitações).</p>
+
+    <p><strong>Resposta:</strong> apartamento de <strong>2 quartos</strong>. Entre os segmentos com amostra robusta, ele apresenta a melhor relação entre diária mediana e preço de aquisição.</p>
+
     <table>
-      <thead><tr><th>Perfil</th><th>Diária mediana</th><th>n (séries)</th><th>Eficiência %/dia</th><th>Leitura</th></tr></thead>
+      <thead><tr><th>Perfil</th><th>Diária mediana</th><th>n séries</th><th>Eficiência %/dia</th><th>Leitura</th></tr></thead>
       <tbody>
-        <tr class="hotel"><td>Apartamento · 2q</td><td>R$ 484</td><td>333</td><td class="good">0,060</td><td><span class="pill g">Melhor</span></td></tr>
+        <tr class="dest"><td>Apartamento · 2q</td><td>R$ 484</td><td>333</td><td class="good">0,060</td><td><span class="pill g">Prioridade</span></td></tr>
         <tr><td>Apartamento · 1q</td><td>R$ 400</td><td>106</td><td>0,057</td><td>Forte</td></tr>
         <tr><td>Apartamento · 3q</td><td>R$ 680</td><td>390</td><td>0,039</td><td>Médio</td></tr>
         <tr><td>Apartamento · 4q</td><td>R$ 1.050</td><td>68</td><td>0,029</td><td class="warn">Baixo</td></tr>
-        <tr><td>Casa (1-4q)</td><td>variável</td><td>12-21</td><td>0,030–0,049</td><td class="warn">Menos eficiente</td></tr>
+        <tr><td>Casa · 1–4q</td><td>variável</td><td>12–21</td><td>0,030–0,049</td><td class="warn">Amostra/eficiência menores</td></tr>
       </tbody>
     </table>
-    <p class="small">Somente perfis com n ≥ 30 séries de preço na base. Casas e ≥4q têm eficiência menor: o
-    preço de compra cresce mais rápido que a diária.</p>
-    <div class="callout blue"><strong>Tipo de anúncio:</strong> anúncios <strong>profissionais</strong> têm eficiência
-    0,058%/dia (vs 0,043% não-profissional) e reserva instantânea 0,050%/dia (vs 0,044%). <strong>Guest favorite não
-    agrega</strong> (0,044%). Logo, para o mesmo imóvel, operar como profissional com reserva instantânea melhora a eficiência.</div>
-    <h4>Break-even (ocupação mínima p/ atingir retorno sobre o imóvel)</h4>
+
+    <p>O ponto central não é que 3q e 4q cobrem diárias menores — cobram mais. O problema é que <strong>o preço de aquisição cresce mais rápido que a diária</strong>, reduzindo a eficiência do capital adicional.</p>
+
+    <h3>Tipo de anúncio</h3>
+    <p>Na base, anúncios classificados como <strong>profissionais</strong> e anúncios com <strong>reserva instantânea</strong> aparecem associados a métricas de diária/eficiência mais altas. Isso orienta a operação, mas <strong>não prova causalidade</strong>: o tipo de operador pode estar correlacionado com localização, qualidade e perfil do imóvel.</p>
+
     <table>
-      <thead><tr><th>Perfil</th><th>venda mediana</th><th>p/ 6% a.a.</th><th>p/ 8% a.a.</th><th>p/ 10% a.a.</th></tr></thead>
+      <thead><tr><th>Característica</th><th>Eficiência observada</th><th>Comparação</th></tr></thead>
       <tbody>
-        <tr class="hotel"><td>Apartamento 1q · Interior</td><td>R$ 699k</td><td>37%</td><td class="good">48%</td><td>60%</td></tr>
-        <tr class="hotel"><td>Apartamento 2q · Interior</td><td>R$ 750k</td><td>33%</td><td class="good">44%</td><td>54%</td></tr>
-        <tr><td>Apartamento 1q · Orla</td><td>R$ 883k</td><td>40%</td><td>51%</td><td>63%</td></tr>
-        <tr class="hotel"><td>Apartamento 2q · Orla</td><td>R$ 1,10M</td><td>42%</td><td>54%</td><td>67%</td></tr>
-        <tr><td>Apartamento 3q · Interior</td><td>R$ 1,50M</td><td>46%</td><td>60%</td><td>74%</td></tr>
-        <tr><td>Apartamento 3q · Orla</td><td>R$ 1,90M</td><td>48%</td><td>63%</td><td>78%</td></tr>
-        <tr><td>Apartamento 4q · Orla</td><td>R$ 3,66M</td><td>—</td><td class="bad">80%</td><td>—</td></tr>
+        <tr><td>Profissional</td><td class="good">0,058%/dia</td><td>não profissional: 0,043%</td></tr>
+        <tr><td>Reserva instantânea</td><td class="good">0,050%/dia</td><td>sem reserva instantânea: 0,044%</td></tr>
+        <tr><td>Guest favorite</td><td>0,044%/dia</td><td>sem prêmio claro na métrica usada</td></tr>
       </tbody>
     </table>
-    <div class="callout green"><strong>O 2q Interior exige a menor ocupação (44% p/ 8%) — menor risco tido.</strong>
-    Porém seu teto de receita é menor que o da orla. A escolha entre "menor risco" e "maior potencial" depende da
-    ocupação real, que não está nos dados (ver Pergunta 4).</div>
+
+    <h3>Risco: ocupação mínima para atingir retorno-alvo</h3>
+    <table>
+      <thead><tr><th>Perfil</th><th>Venda mediana</th><th>6%</th><th>8%</th><th>10%</th></tr></thead>
+      <tbody>
+        <tr class="dest"><td>2q · Interior</td><td>R$ 750k</td><td>33%</td><td class="good">44%</td><td>54%</td></tr>
+        <tr><td>1q · Interior</td><td>R$ 699k</td><td>37%</td><td>48%</td><td>60%</td></tr>
+        <tr><td>1q · Orla</td><td>R$ 883k</td><td>40%</td><td>51%</td><td>63%</td></tr>
+        <tr><td>2q · Orla</td><td>R$ 1,10M</td><td>42%</td><td class="warn">54%</td><td>67%</td></tr>
+        <tr><td>3q · Interior</td><td>R$ 1,50M</td><td>46%</td><td>60%</td><td>74%</td></tr>
+        <tr><td>3q · Orla</td><td>R$ 1,90M</td><td>48%</td><td>63%</td><td>78%</td></tr>
+        <tr><td>4q · Orla</td><td>R$ 3,66M</td><td>—</td><td class="bad">80%</td><td>—</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout green"><strong>Leitura:</strong> 2q interior é o perfil de menor risco no cenário de break-even. A recomendação de 2q na orla é uma decisão de <strong>potencial operacional</strong>, não uma afirmação de que a orla é a opção de menor risco.</div>
   </section>
 
-  <!-- PERGUNTA 2 -->
-  <section>
+  <section id="localizacao">
     <h2><span class="num">2</span>Qual a melhor localização em termos de receita?</h2>
-    <div class="chart-box">
-      <svg viewBox="0 0 460 210" width="100%" xmlns="http://www.w3.org/2000/svg">
-        <g font-family="sans-serif" font-size="13">
-          <text x="10" y="20" font-weight="bold" fill="#0b3d6b">Diária med por zona (R$)</text>
-          <rect x="40" y="60" width="220" height="34" fill="#1266b7"><title>Orla 594</title></rect>
-          <text x="270" y="84" fill="#1266b7">594</text>
-          <rect x="40" y="120" width="180" height="34" fill="#8fb3d9"/><text x="226" y="142">477</text>
-          <text x="10" y="45" fill="#5a6572">Orla</text>
-          <text x="10" y="105" fill="#5a6572">Interior</text>
-          <text x="30" y="185" fill="#5a6572" font-size="12">Orla 3545 anúncios (24% ativos) · Interior 896 (17% ativos)</text>
-        </g>
-      </svg>
+
+    <p><strong>Resposta defensável com a base disponível:</strong> a <strong>orla</strong> — principalmente Meia Praia e Centro — apresenta a melhor combinação de <strong>diária observada e escala de oferta</strong>. Não é possível afirmar que tenha a maior receita total porque a base não contém ocupação.</p>
+
+    <div class="bar-wrap" aria-label="Comparação de diária mediana entre orla e interior">
+      <div class="bar-row"><strong>Orla</strong><div class="bar-bg"><div class="bar" style="width:100%"></div></div><strong>R$ 594</strong></div>
+      <div class="bar-row"><strong>Interior</strong><div class="bar-bg"><div class="bar" style="width:80%"></div></div><strong>R$ 477</strong></div>
     </div>
+
     <table>
-      <thead><tr><th>Zona</th><th>Anúncios</th><th>Tipo dominante</th><th>Diária mediana</th><th>Proxy de atividade</th></tr></thead>
+      <thead><tr><th>Zona</th><th>Anúncios</th><th>Diária mediana</th><th>Presença em Price_AV</th><th>Interpretação</th></tr></thead>
       <tbody>
-        <tr class="hotel"><td><strong>Orla</strong> (Meia Praia, Centro, Canto)</td><td>3.545 (80%)</td><td>Apartamento</td><td class="good">R$ 594</td><td>24% (série 113 dias)</td></tr>
-        <tr><td><strong>Interior</strong></td><td>896 (20%)</td><td>Casa</td><td>R$ 477</td><td>17% (série 78 dias)</td></tr>
+        <tr class="dest"><td><strong>Orla</strong><br><span class="small">Meia Praia, Centro, Canto</span></td><td>3.545 (80%)</td><td class="good">R$ 594</td><td>~24%</td><td>maior diária + maior escala</td></tr>
+        <tr><td><strong>Interior</strong></td><td>896 (20%)</td><td>R$ 477</td><td>~17%</td><td>menor preço de entrada em alguns perfis</td></tr>
       </tbody>
     </table>
-    <p><strong>Meia Praia</strong> concentra 64% da oferta e diária mediana R$ 596, com <strong>626-632 série de preço</strong>
-    — a maior amostra válida. <strong>Centro</strong> soma diária R$ 580 (205). São as duas localizações de melhor custo-benefício
-    de oferta × diária.</p>
-    <div class="callout"><strong>Cautela:</strong> medimos <strong>diária + proxy de atividade</strong> (presença da série),
-    não ocupação real. A orla parece mais ativa/operada, mas "receita" (diária × ocupação) <strong>não é computável</strong> sem
-    calendário de reservas.</div>
-  </section>
 
-  <!-- Pergunta 3 -->
-  <section>
-    <h2><span class="num">3</span>Quais características explicam as melhores receitas?</h2>
-    <p>Modelo descritivo (regressão OLS, variável resposta = log da diária mediana do listing). Coeficientes em
-    log (≈ variação % por unidade), n = 999.</p>
-    <table>
-      <thead><tr><th>Variável</th><th>Coeficiente</th><th>Efeito</th></tr></thead>
-      <tbody>
-        <tr class="hotel"><td>Nº de quartos</td><td>+0,327</td><td class="good">Diária +32% por quarto extra</td></tr>
-        <tr class="hotel"><td>Orla / Interior</td><td>+0,142</td><td class="good">Orla +14%</td></tr>
-        <tr class="hotel"><td>Anúncio profissional</td><td>+0,221</td><td class="good">+22%</td></tr>
-        <tr><td>Superhost</td><td>+0,008</td><td class="warn">≈ sem efeito</td></tr>
-        <tr><td>Guest favorite</td><td>−0,040</td><td class="warn">sem prêmio (negativo)</td></tr>
-        <tr><td>Nº de avaliações (log)</td><td>−0,105</td><td class="warn">mais reviews → diária menor</td></tr>
-      </tbody>
-    </table>
-    <p class="small">R² ≈ 0,41. Quartos e localização (orla) têm os maiores efeitos positivos; superhost/guest favorite
-    <strong>não explicam diária maior</strong>. O sinal negativo de avaliações sugere que anúncios novos cobram mais (sem lote),
-    mas <strong>não podemos medir a receita</strong> por demanda sem ocupação.</p>
-    <h3>Distribuição de diária por número de avaliações</h3>
-    <p>0 reviews: R$ 935 · 1–5: R$ 644 · 6–20: R$ 584 · 21–50: R$ 517 · 51+: R$ 494.</p>
-    <p><em>Associação com a diária (receita por noite), não com receita total.</em></p>
-  </section>
-
-  <!-- Pergunta 4 -->
-  <section>
-    <h2><span class="num">4</span>O que eu compraria hoje e por quê?</h2>
-    <div class="veredito">
-      <h4>Recomendação final</h4>
-      <p><strong>Compraria apartamentos de 2 quartos, em zona litorânea (Meia Praia preferida), operados como anúncio profissional com reserva instantânea, para curta estadia.</strong></p>
-      <p>Se o apetite for por menor risco de capital (imóvel mais barato), o apartamento de 2 quartos no interior e o tipo mais fácil de atingir retorno (ocupação mínima ≈ 44%), como opção alternativa para diversificar.</p>
-    </div>
-    <h3>Estimativa simples de retorno (cenário)</h3>
-    <p>Para um 2q na orla (venda mediana R$ 1,10M; diária mediana ~R$ 480–596; condomínio R$ 500/mês; IPTU R$ 970/ano. Custo fixo anual ≈ R$ 6.970):</p>
+    <h3>Por que Meia Praia aparece como primeira região de busca?</h3>
     <ul>
-      <li>Se ocupar <strong>50%</strong> (~182 noites): receita bruta ≈ 182 × R$ 596 ≈ <strong>R$ 108,5 mil</strong>.</li>
-      <li>Abatendo condomínio + IPTU (~R$ 7 mil) → <strong>~R$ 101 mil</strong> (antes de despesas operacionais/tributos).</li>
-      <li>Retorno bruto sobre o imóvel ≈ <strong>9,2% a.a.</strong> no cenário de 50%.</li>
+      <li>concentra aproximadamente <strong>64% da oferta observada</strong>;</li>
+      <li>tem diária mediana de aproximadamente <strong>R$ 596</strong> considerando os anúncios com preço;</li>
+      <li>possui a maior amostra de listings com série de preço, o que reduz o risco de decidir com base em poucos casos.</li>
     </ul>
-    <p class="small"><strong>Trata-se de um cenário de sensibilidade</strong>, não de um ROI observado. Exige
-    premissa de ocupação de 50% — dado ausente. O ponto de break-even (ocupação mínima p/ cada meta) está na P1.</p>
-    <div class="callout blue"><strong>Esta resposta estaria completa se...?</strong> Se tivéssemos calendário de reservas
-    (ocupação real), transformaríamos "cenário" em retorno medido. Nos datasets esse dado não existe; para o hackathon,
-    apresentamos o break-even e o cenário — defensáveis e transparentes.</div>
+
+    <div class="callout"><strong>Limite da conclusão:</strong> presença no <span class="mono">Price_AV</span> é apenas um <strong>proxy de atividade da base</strong>, não ocupação. Sem calendário de reservas, não calculo noites vendidas, receita total ou RevPAR por bairro.</div>
   </section>
 
-  <!-- Tese -->
-  <section>
+  <section id="caracteristicas">
+    <h2><span class="num">3</span>Quais características explicam as melhores receitas?</h2>
+
+    <p>Como receita total não é observável, usei a <strong>diária mediana do anúncio</strong> como variável mensurável e rodei uma regressão OLS com <span class="mono">log(diária)</span> como resposta (n ≈ 999; R² ≈ 0,41).</p>
+
+    <table>
+      <thead><tr><th>Variável</th><th>Coeficiente em log</th><th>Associação aproximada com a diária</th></tr></thead>
+      <tbody>
+        <tr class="dest"><td>Nº de quartos</td><td>+0,327</td><td class="good">+38,7% por quarto adicional</td></tr>
+        <tr class="dest"><td>Operador profissional</td><td>+0,221</td><td class="good">+24,7%</td></tr>
+        <tr class="dest"><td>Orla vs interior</td><td>+0,142</td><td class="good">+15,3%</td></tr>
+        <tr><td>Superhost</td><td>+0,008</td><td>~+0,8% · efeito pequeno</td></tr>
+        <tr><td>Guest favorite</td><td>−0,040</td><td>~−3,9% · sem prêmio positivo no modelo</td></tr>
+        <tr><td>log(nº avaliações)</td><td>−0,105</td><td>~−10,0% por +1 unidade em log(reviews)</td></tr>
+      </tbody>
+    </table>
+
+    <p class="small">As variações percentuais acima usam <span class="mono">exp(coeficiente) − 1</span>. O modelo é descritivo/associativo. Não demonstra que alterar uma característica causará a variação indicada.</p>
+
+    <h3>O que eu levaria para a decisão</h3>
+    <ul>
+      <li><strong>Quartos, localização e perfil profissional do anúncio</strong> são os sinais positivos mais fortes no modelo.</li>
+      <li><strong>Superhost e guest favorite</strong> não aparecem como fontes relevantes de prêmio de diária nesta especificação.</li>
+      <li>O resultado de avaliações negativas pode refletir composição da oferta: anúncios novos ou premium podem cobrar mais e ainda ter poucas avaliações. <strong>Não interpreto isso como “reviews reduzem preço”.</strong></li>
+    </ul>
+  </section>
+
+  <section id="compra">
+    <h2><span class="num">4</span>Se a Seazone fosse investir hoje, o que eu compraria?</h2>
+
+    <div class="veredito">
+      <h3>Compraria um apartamento de 2 quartos na orla</h3>
+      <p><strong>Meia Praia seria a primeira região de busca.</strong> Eu estruturaria a operação como anúncio profissional, com reserva instantânea, e trataria o investimento como produto de short stay — não apenas como compra imobiliária passiva.</p>
+    </div>
+
+    <h3>Por que essa decisão, mesmo com break-even maior que o interior?</h3>
+    <p>Porque são duas decisões diferentes:</p>
+    <ul>
+      <li><strong>2q interior</strong> maximiza a segurança do cenário de retorno: aquisição menor e ocupação necessária menor.</li>
+      <li><strong>2q orla</strong> é minha escolha estratégica para a Seazone porque a região concentra mais oferta, diária observada superior e maior presença de dados de preço — fatores relevantes para uma operação de curta estadia em escala.</li>
+    </ul>
+
+    <h3>Estimativa simples de retorno — cenário, não previsão</h3>
+    <p>Para manter coerência entre o imóvel recomendado e a diária usada no cálculo, considero um <strong>2q na orla</strong> com:</p>
+    <ul>
+      <li>aquisição mediana: <strong>~R$ 1,10 milhão</strong>;</li>
+      <li>diária de referência do perfil: <strong>~R$ 480</strong>;</li>
+      <li>condomínio + IPTU usados no cenário: <strong>~R$ 6.970/ano</strong>;</li>
+      <li>custos operacionais, tributos e taxa de gestão: <strong>não incluídos</strong>.</li>
+    </ul>
+
+    <table>
+      <thead><tr><th>Ocupação hipotética</th><th>Noites/ano</th><th>Receita bruta*</th><th>Após condomínio + IPTU*</th><th>Retorno mecânico*</th></tr></thead>
+      <tbody>
+        <tr><td>40%</td><td>146</td><td>~R$ 70,1 mil</td><td>~R$ 63,1 mil</td><td>~5,7%</td></tr>
+        <tr><td>50%</td><td>~183</td><td>~R$ 87,6 mil</td><td>~R$ 80,6 mil</td><td>~7,3%</td></tr>
+        <tr class="dest"><td>54%</td><td>~197</td><td>~R$ 94,6 mil</td><td>~R$ 87,6 mil</td><td class="good">~8,0%</td></tr>
+        <tr><td>60%</td><td>219</td><td>~R$ 105,1 mil</td><td>~R$ 98,2 mil</td><td>~8,9%</td></tr>
+      </tbody>
+    </table>
+
+    <p class="small">*Cálculo mecânico mantendo a diária de R$480 constante ao longo do ano. Isso <strong>não é uma previsão de retorno</strong>. A base de preços cobre 06/01–20/04/2025 e não permite inferir ADR anual nem ocupação real. A utilidade do quadro é mostrar a sensibilidade da decisão e o break-even aproximado.</p>
+
+    <div class="callout red"><strong>O dado que muda a decisão:</strong> ocupação real. Se a ocupação observada do 2q orla ficar estruturalmente abaixo do patamar necessário, o 2q interior passa a ser a alternativa mais defensável pelo menor risco de capital.</div>
+  </section>
+
+  <section id="tese">
     <h2><span class="num">★</span>Posição sobre a tese dos compactos no Centro</h2>
-    <p>A análise preliminar interna sugeriu: <em>"apartamentos compactos (studio/1 quarto) na região do Centro"</em> como aposta
-    mais eficiente.</p>
-    <h3>O que os dados mostram (eficiência diária÷venda)</h3>
+
+    <p>A hipótese preliminar era: <em>“apartamentos compactos (studio/1 quarto) no Centro são a aposta mais eficiente para a Seazone.”</em></p>
+
     <table>
       <thead><tr><th>Perfil</th><th>Bairro</th><th>Diária</th><th>n</th><th>Venda mediana</th><th>Eficiência %/dia</th></tr></thead>
       <tbody>
-        <tr class="hotel"><td>Studio (0q)</td><td>Centro</td><td class="bad">sem dado</td><td class="bad">0</td><td>—</td><td class="bad">n/a</td></tr>
-        <tr class="hotel"><td>1q</td><td>Centro</td><td>R$ 450</td><td>78</td><td>R$ 890k</td><td>0,051</td></tr>
-        <tr><td>2q</td><td>Centro</td><td>R$ 580</td><td>65</td><td>R$ 1,12M</td><td class="good">0,052</td></tr>
+        <tr><td>Studio (0q)</td><td>Centro</td><td class="bad">sem série válida</td><td class="bad">0</td><td>—</td><td class="bad">n/a</td></tr>
+        <tr><td>1q</td><td>Centro</td><td>R$ 450</td><td>78</td><td>R$ 890k</td><td>0,051</td></tr>
+        <tr class="dest"><td>2q</td><td>Centro</td><td>R$ 580</td><td>65</td><td>R$ 1,12M</td><td class="good">0,052</td></tr>
         <tr><td>3q</td><td>Centro</td><td>R$ 790</td><td>45</td><td>R$ 2,10M</td><td>0,038</td></tr>
-        <tr><td>1q</td><td>Meia Praia</td><td>R$ 485</td><td>20</td><td>R$ 883k</td><td class="good">0,055</td></tr>
+        <tr><td>1q</td><td>Meia Praia</td><td>R$ 485</td><td>20</td><td>R$ 883k</td><td>0,055</td></tr>
         <tr><td>2q</td><td>Meia Praia</td><td>R$ 460</td><td>187</td><td>R$ 1,08M</td><td>0,043</td></tr>
       </tbody>
     </table>
-    <h3>Veredito</h3>
-    <p><strong>Parcialmente sustentada, mas não é a melhor nem completa:</strong></p>
+
+    <div class="veredito">
+      <h3>Veredito: a tese precisa ser reformulada</h3>
+      <p><strong>Não sustentaria “studio/1q no Centro” como a aposta mais eficiente da cidade.</strong></p>
+      <p>O que os dados sustentam é: <strong>1–2 quartos são perfis eficientes em capital</strong>. O Centro é competitivo, mas não exclusivo; 2q no próprio Centro empata/supera 1q, e o componente “studio” não pode ser validado por ausência de série de preço no recorte.</p>
+    </div>
+
     <ul>
-      <li><strong>Studio (0q) no Centro: sem nenhum dado de preço</strong> (n=0) — a parte "studio" da tese <strong>não tem como ser afirmada</strong>.</li>
-      <li>O <strong>1 quarto no Centro é eficiente</strong> (0,051%), e melhor que o 3 quartos do próprio Centro (0,038%).</li>
-      <li>Mas o <strong>2 quartos no Centro empata</strong> (0,052%), e o <strong>1q/2q "geral" da cidade é superior</strong> em eficiência (0,057–0,060).</li>
-      <li>O <strong>1q em Meia Praia (0,055%)</strong> é <strong>melhor que o 1q no Centro</strong> — a vantagem "Centro" não se confirma em escala.</li>
+      <li><strong>Studio:</strong> sem evidência suficiente no Centro.</li>
+      <li><strong>1q Centro:</strong> eficiente, mas não domina todas as alternativas.</li>
+      <li><strong>2q Centro:</strong> eficiência de 0,052%/dia, ligeiramente acima do 1q Centro.</li>
+      <li><strong>Conclusão:</strong> trocar a tese “studio/1q + Centro” por <strong>“1–2 quartos + análise por risco e potencial operacional”</strong>.</li>
     </ul>
-    <div class="veredito"><h4>Posição final</h4>
-    Os dados <strong>não sustentam</strong> a tese de que compacto no Centro seja a aposta <em>mais</em> eficiente da cidade.
-    Eles apenas confirmam que <strong>compactos e de 1–2 quartos são bons perfis de capital</strong>, sem exclusividade do Centro, e que
-    a promessa "studio" especificamente é <strong>sem evidência</strong> (sem série de preço). Recomendo priorizar
-    <strong>apartamento de 2 quartos (orla) e 1–2 quartos em Meia/Centro</strong> como perfil, refletindo a tese para
-    <em>1–2 quartos</em> em vez de estúdio.</div>
   </section>
 
-  <!-- Metodologia -->
-  <section>
+  <section id="metodo">
     <h2>Metodologia, regras e limitações</h2>
-    <h3>Joins</h3>
-    <p><code>Details</code> ∪ <code>Mesh</code> (4.441 listings por chave <em>airbnb_listing_id</em> = 100%);
-    <code>Price_AV</code> cobre 1.005 listings (≈22%); <code>VivaReal</code> (8,329 venda) conecta por <strong>bairro</strong>
-    (sem id comum). Orla = Meia Praia + Centro + Canto da Praia (+ coords do Mesh quando aplicável).</p>
+
+    <h3>Dados e joins</h3>
+    <ul>
+      <li><span class="mono">Details_Itapema.csv</span> + <span class="mono">Mesh_Ids_Data_Itapema.csv</span>: 4.441 listings, junção por <span class="mono">airbnb_listing_id</span>.</li>
+      <li><span class="mono">Price_AV_Itapema.csv</span>: aproximadamente 1.005 listings com série de preço (~22% da base de anúncios).</li>
+      <li><span class="mono">Hosts_ids_Itapema.csv</span>: informações do host ligadas por <span class="mono">owner_id</span>.</li>
+      <li><span class="mono">VivaReal_Itapema.csv</span>: mercado de aquisição, sem chave comum com Airbnb; cruzamento analítico por bairro/perfil.</li>
+    </ul>
+
     <h3>Regras de análise</h3>
     <ul>
-      <li>Janela de preço: <strong>06/01 a 20/04/2025</strong> (alta temporada) — <strong>sem projeção anual</strong>.</li>
-      <li>Séries ≥ 40 dias e ≥ 2 meses p/ sazon; <strong>mediana do listing</strong> (evitar peso de listings com mais dias).</li>
-      <li>Segmentos com n < 30 rotulados como indicativos; excluímos "hotel" (n=1) e casas de alto nº de quartos.</li>
-      <li>Preço de venda com filtro ≥ R$ 50 mil.</li>
+      <li>janela observada de preço: <strong>06/01 a 20/04/2025</strong>;</li>
+      <li>mediana por listing para reduzir peso de anúncios com mais observações;</li>
+      <li>segmentos pequenos tratados como indicativos; prioridade para recortes com <strong>n ≥ 30</strong>;</li>
+      <li>preços de venda inferiores a R$ 50 mil removidos como filtro de plausibilidade;</li>
+      <li>“orla” = Meia Praia + Centro + Canto da Praia para a agregação regional usada no relatório.</li>
     </ul>
-    <h3>Metas da classe de métricas</h3>
-    <ul>
-      <li><strong>Diretas:</strong> diária, preço de venda, quartos, bairro, superhost, nº reviews.</li>
-      <li><strong>Derivadas:</strong> eficiência de capital (<code>diária÷venda</code>), ocupação mínima (break-even),
-      proxy de atividade, regressão.</li>
-      <li><strong>Impossíveis com os dados:</strong> ocupação real, receita total, ROI/RevPAR,
-      “melhor em ocupação” e o retorno "real". Referem-se a fontes de calendário de reservas que não estão disponíveis na base.</li>
-    </ul>
+
+    <h3>O que é observado, derivado e não observável</h3>
+    <table>
+      <thead><tr><th>Classe</th><th>Exemplos</th><th>Como foi tratada</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Observado</strong></td><td>diária, preço de venda, quartos, bairro, reviews, superhost</td><td>evidência direta da base</td></tr>
+        <tr><td><strong>Derivado</strong></td><td>eficiência diária÷venda, regressão, break-even, proxy de atividade</td><td>métrica construída e explicitada</td></tr>
+        <tr><td><strong>Não observável</strong></td><td>ocupação real, receita total, RevPAR, ROI real</td><td>não tratado como fato</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout blue"><strong>Principal limitação:</strong> sem calendário de reservas, o relatório consegue comparar preço, perfil, localização e cenários de retorno, mas não consegue provar qual segmento efetivamente realiza maior receita anual.</div>
   </section>
 
-  <p class="foot">Análise construída com IA (Claude Code / OpenCode). Dados: Seazone · Hackathon Jovens Talentos AI Builder 2026 · Itapema/SC. · Processo completo em <code>ai-log/</code>.</p>
+  <section id="ia">
+    <h2>Como a IA foi usada no processo</h2>
+    <p>A IA foi usada como ferramenta de investigação e execução, não como fonte final de verdade. O registro completo está em <span class="mono">ai-log/</span>.</p>
 
+    <ul>
+      <li><strong>Mapeamento:</strong> inventário dos cinco datasets, granularidade, colunas e chaves.</li>
+      <li><strong>Validação:</strong> revisão de cobertura, amostras pequenas, campos ausentes e inconsistências.</li>
+      <li><strong>Iteração:</strong> após a primeira conclusão de eficiência, a análise foi refeita excluindo segmentos com poucas observações.</li>
+      <li><strong>Senso crítico:</strong> um proxy de atividade foi aceito apenas como proxy; não foi chamado de ocupação.</li>
+      <li><strong>Decisão humana:</strong> a tese interna foi confrontada com os dados em vez de ser adotada como resposta.</li>
+    </ul>
+
+    <h3>O que eu faria com mais uma semana</h3>
+    <ol>
+      <li>obter calendário de reservas/ocupação real e calcular RevPAR, receita e ROI observado;</li>
+      <li>adicionar taxa de gestão, limpeza, manutenção, tributos e demais custos operacionais;</li>
+      <li>tratar localização por distância efetiva à praia em vez de apenas bairro;</li>
+      <li>validar a regressão com interações entre quartos × localização e análises de robustez adicionais.</li>
+    </ol>
+  </section>
+
+  <p class="foot">Hackathon Jovens Talentos AI Builder 2026 · Seazone · Itapema/SC · Análise construída com Claude Code / OpenCode · Processo completo em <span class="mono">ai-log/</span>.</p>
 </main>
 </body>
 </html>
