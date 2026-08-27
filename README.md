@@ -9,6 +9,9 @@
 
 **Entregável central:** [RELATÓRIO NAVEGÁVEL](https://leschneiater.github.io/jt2026-leticia-gentil/)
 
+**Decisão auditada:** [`DECISAO_FINAL.md`](./DECISAO_FINAL.md)  
+**Gate reproduzível da decisão:** [`analysis/decision_gate.py`](./analysis/decision_gate.py)
+
 O relatório responde às quatro perguntas do desafio, apresenta uma posição sobre a tese dos compactos no Centro, explicita as limitações dos dados e documenta como a IA foi utilizada durante a investigação.
 
 ---
@@ -19,16 +22,17 @@ O relatório responde às quatro perguntas do desafio, apresenta uma posição s
 
 Essa decisão não significa que a orla seja a alternativa de menor risco.
 
-O **2 quartos no interior apresenta menor break-even** no cenário analisado. A escolha da orla é uma decisão estratégica: aceita uma ocupação necessária maior em troca de **diária observada superior, escala de oferta e maior profundidade do mercado de curta estadia**.
+O **2 quartos no Interior apresenta menor break-even** no cenário analisado. A escolha da Orla é uma decisão estratégica: aceita uma ocupação necessária maior em troca de **diária observada superior, maior escala observada de oferta e maior disponibilidade de evidência de preços**.
 
-| Hierarquia | Leitura da análise |
+| Dimensão da decisão | Leitura da análise |
 |---|---|
 | **Tipologia** | Apartamento concentra os perfis mais eficientes analisados |
 | **Nº de quartos** | **2 quartos** apresenta a melhor eficiência de capital entre segmentos robustos (~0,060%/dia) |
 | **Tipo de anúncio** | Operação **profissional + reserva instantânea** aparece associada a métricas superiores; associação não implica causalidade |
-| **Localização** | **Orla** apresenta diária mediana observada de ~R$ 594 vs ~R$ 477 no interior |
-| **Menor risco de retorno** | **2q Interior** precisa de ~44% de ocupação para atingir 8% no cenário-base |
-| **Escolha estratégica** | **2q Orla**, com Meia Praia como primeira região de busca |
+| **Localização** | **Orla** apresenta diária mediana observada de ~R$ 594 vs ~R$ 477 no Interior |
+| **Menor risco de retorno** | **2Q Interior** precisa de ~44% de ocupação para atingir 8% no cenário-base |
+| **Escolha estratégica** | **2Q Orla**, com Meia Praia como primeira região de busca |
+| **Condição de reversão** | se 2Q Orla não sustentar ~54% nas premissas comparáveis, a decisão reverte para 2Q Interior |
 
 ---
 
@@ -36,21 +40,35 @@ O **2 quartos no interior apresenta menor break-even** no cenário analisado. A 
 
 O desafio deixa os termos “melhor perfil” e “melhor localização” propositalmente abertos.
 
-Por isso, a decisão foi analisada a partir de quatro dimensões:
+Por isso, a decisão não usa uma hierarquia rígida. Ela segue uma **regra de decisão**:
 
-1. **Eficiência de capital** — diária mediana observada ÷ preço mediano de aquisição.
-2. **Risco** — ocupação mínima necessária para atingir uma meta de retorno em um cenário mecânico.
-3. **Potencial operacional** — diária observada, escala de oferta e presença de dados de preço na região.
-4. **Robustez** — prioridade para segmentos com amostra suficiente e separação entre evidência, hipótese e limitação.
+1. **Robustez** — eliminar ou rebaixar segmentos com evidência insuficiente.
+2. **Eficiência de capital e risco** — estabelecer o baseline econômico usando preço de aquisição e break-even.
+3. **Potencial operacional** — avaliar diária observada, escala de oferta e disponibilidade de evidência de preços.
+4. **Decisão humana condicionada** — uma alternativa de maior risco só pode ser escolhida se o trade-off estiver explícito e houver um critério objetivo que possa invalidá-la.
 
-Essas dimensões não apontam sempre para o mesmo imóvel.
+Essa regra evita combinar automaticamente dois vencedores independentes — por exemplo, “2 quartos é o melhor perfil” + “Orla tem maior diária” — sem testar diretamente o conflito entre as alternativas finais.
 
-O principal trade-off encontrado foi:
+### Confronto direto: 2Q Interior × 2Q Orla
 
-- **2q Interior** → menor preço de entrada e menor ocupação necessária para atingir o retorno-alvo;
-- **2q Orla** → diária observada maior e mercado de curta estadia mais profundo.
+| Métrica | 2Q Interior | 2Q Orla | Diferença da Orla |
+|---|---:|---:|---:|
+| Preço mediano de aquisição | **R$ 750 mil** | **R$ 1,10 milhão** | +R$ 350 mil (~46,7%) |
+| Ocupação para retorno de 6% | **33%** | **42%** | +9 p.p. |
+| Ocupação para retorno de 8% | **44%** | **54%** | +10 p.p. |
+| Ocupação para retorno de 10% | **54%** | **67%** | +13 p.p. |
 
-A recomendação final privilegia a segunda alternativa para a estratégia da Seazone, mantendo o Interior como referência de menor risco de capital.
+A leitura correta é:
+
+- **2Q Interior** é o baseline de menor risco de capital;
+- **2Q Orla** é uma escolha estratégica condicionada;
+- passar o hurdle de ~54% significa apenas que a Orla atende à meta mecânica de 8% usada no cenário — **não prova que ela supera o Interior na mesma ocupação**.
+
+### Condição objetiva de reversão
+
+> **Se dados reais mostrarem que o 2Q Orla não consegue sustentar aproximadamente 54% de ocupação nas premissas comparáveis, a recomendação muda para 2Q Interior.**
+
+O detalhamento dessa lógica está congelado em [`DECISAO_FINAL.md`](./DECISAO_FINAL.md).
 
 ---
 
@@ -81,7 +99,7 @@ Essa relação é tratada como **associação observada**, não como causalidade
 
 ## 2. Qual a melhor localização em termos de receita?
 
-A resposta defensável com a base disponível é a **orla**, especialmente **Meia Praia e Centro**, pela combinação de **diária observada e escala de oferta**.
+A resposta defensável com a base disponível é a **Orla**, especialmente **Meia Praia e Centro**, pela combinação de **diária observada e escala de oferta**.
 
 - Orla: diária mediana de aproximadamente **R$ 594**;
 - Interior: diária mediana de aproximadamente **R$ 477**;
@@ -102,11 +120,13 @@ A presença no `Price_AV` é tratada apenas como um **proxy de cobertura/ativida
 
 Por isso, a conclusão correta não é:
 
-> “a orla comprovadamente gera mais receita”.
+> “a Orla comprovadamente gera mais receita”.
 
 É:
 
-> **a orla apresenta maior potencial de monetização por diária dentro das variáveis observáveis disponíveis.**
+> **a Orla apresenta maior potencial de monetização por diária dentro das variáveis observáveis disponíveis.**
+
+Maior oferta e maior presença no `Price_AV` **não comprovam demanda nem receita realizada**.
 
 ---
 
@@ -123,7 +143,7 @@ Foi aplicada uma regressão descritiva com `log(diária)` como variável respost
 |---|---:|---:|
 | Nº de quartos | +0,327 | +38,7% por quarto adicional |
 | Operador profissional | +0,221 | +24,7% |
-| Orla vs interior | +0,142 | +15,3% |
+| Orla vs Interior | +0,142 | +15,3% |
 | Superhost | +0,008 | ~+0,8% |
 | Guest favorite | −0,040 | ~−3,9% |
 | log(nº avaliações) | −0,105 | ~−10,0% por +1 unidade em log(reviews) |
@@ -142,21 +162,21 @@ O comportamento negativo do número de avaliações também não é interpretado
 
 ## 4. Se a Seazone fosse investir hoje, o que eu compraria e por quê?
 
-**Compraria um apartamento de 2 quartos na orla, com Meia Praia como primeira região de busca.**
+**Compraria um apartamento de 2 quartos na Orla, com Meia Praia como primeira região de busca.**
 
 A operação seria estruturada para curta estadia, como anúncio profissional e com reserva instantânea.
 
 A escolha considera um trade-off explícito:
 
-- **2q Interior** é a alternativa de menor risco no cenário de retorno;
-- **2q Orla** é a escolha estratégica pela diária observada superior e pela escala do mercado de short stay.
+- **2Q Interior** é a alternativa de menor risco no cenário de retorno;
+- **2Q Orla** é a escolha estratégica pela diária observada superior, pela escala observada de oferta e pela maior disponibilidade de evidência de preços.
 
 ### Estimativa simples de retorno — cenário, não previsão
 
 Para manter coerência entre o imóvel recomendado e a diária utilizada no cálculo, o cenário considera:
 
 - aquisição mediana: **~R$ 1,10 milhão**;
-- diária de referência para 2q na orla: **~R$ 480**;
+- diária de referência para 2Q na Orla: **~R$ 480**;
 - condomínio + IPTU: **~R$ 6.970/ano**;
 - custos operacionais, tributos e taxa de gestão: **não incluídos**.
 
@@ -173,7 +193,7 @@ A base de preços cobre o período de **06/01 a 20/04/2025** e não permite infe
 
 O dado que mais poderia mudar a decisão é justamente a **ocupação observada**.
 
-Se o 2q na orla operar estruturalmente abaixo do patamar necessário, o 2q no interior passa a ser a alternativa mais defensável pelo menor risco de capital.
+**Gate final:** se a ocupação real do 2Q Orla ficar estruturalmente abaixo de ~54% nas premissas comparáveis, o 2Q Interior passa a ser a alternativa mais defensável pelo menor risco de capital.
 
 ---
 
@@ -229,7 +249,7 @@ para:
 - segmentos pequenos tratados como indicativos;
 - prioridade para recortes com **n ≥ 30**;
 - preços de venda inferiores a R$ 50 mil removidos por plausibilidade;
-- para a agregação regional deste relatório, **orla = Meia Praia + Centro + Canto da Praia**;
+- para a agregação regional deste relatório, **Orla = Meia Praia + Centro + Canto da Praia**;
 - separação explícita entre dado observado, métrica derivada e informação não observável.
 
 ## O que é observado
@@ -311,7 +331,13 @@ O relatório é um único arquivo HTML autossuficiente, com CSS embutido e sem d
 
 ```bash
 # na raiz do repositório
-
 open index.html      # macOS
 xdg-open index.html  # Linux
 start index.html     # Windows
+```
+
+Para reproduzir apenas o gate final da decisão:
+
+```bash
+python analysis/decision_gate.py
+```
